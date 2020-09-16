@@ -4,7 +4,7 @@ title Batch CIA 3DS Decryptor
 SetLocal EnableDelayedExpansion
 echo %date% %time% >log.txt 2>&1
 echo Decrypting...
-for %%a in (*.ncch) do del "%%a" >nul
+for %%a in (*.CCI) do del "%%a" >nul
 for %%a in (*.3ds) do (
 	set CUTN=%%~na
 	if /i x!CUTN!==x!CUTN:decrypted=! (
@@ -47,7 +47,7 @@ for %%a in (*.cia) do (
 			echo | decrypt "%%a" >>log.txt 2>&1
 			for %%h in ("!CUTN!.*.ncch") do (
 				set NCCHN=%%~nh
-				set /a n=!NCCHN:%%~na.=!
+				set /a n=!CCI:%%~na.=!
 				if !n! gtr !X! set /a X=!n!
 			)
 			for /f "delims=" %%d in ('findstr /c:!TEXT! !FILE!') do (
@@ -78,7 +78,7 @@ if !X! geq !i! (
 	if exist !CUTN!.!i!.ncch (
 		set CONLINE=!CONLINE:~24,8!
 		call :GETX !CONLINE!, ID
-		set ARG=!ARG! -i "!CUTN!.!i!.ncch:!i!:!ID!"
+		set ARG=!ARG! -i "!CUTN!.!i!.cci:!i!:!ID!"
 		set /a i+=1
 	) else (
 		set /a i+=1
